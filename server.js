@@ -15,7 +15,7 @@ const options = {
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
 };
 mongoose.Promise = global.Promise;
-mongoose.connect('YOUR_MONGO_CONNECTION', options);
+mongoose.connect('localhost', options);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
