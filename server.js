@@ -11,11 +11,10 @@ const port = process.env.PORT || 8080;
 
 // DB connection through Mongoose
 const options = {
-  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+  useMongoClient: true
 };
 mongoose.Promise = global.Promise;
-mongoose.connect('localhost', options);
+mongoose.connect('mongodb://localhost/games', options);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -45,7 +44,8 @@ app.route('/games/:id').get(getGame).delete(deleteGame);
 
 // ...For all the other requests just sends back the Homepage
 app.route('*').get((req, res) => {
-  res.sendFile('client/dist/index.html', { root: __dirname });
+  res.send('Hello blog');
+  // res.sendFile('client/dist/index.html', { root: __dirname });
 });
 
 app.listen(port);
