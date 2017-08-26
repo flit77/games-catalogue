@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "api": "babel-node server.js"
+    "api": "babel-node server.js",
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=build webpack"
   },
   "keywords": [],
   "author": "",
@@ -31,7 +33,11 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "es2015",
+      "react"
+    ],
+    "plugins": [
+      "react-hot-loader/babel"
     ]
   }
 }
