@@ -44,8 +44,8 @@ app.route('/games/:id').get(getGame).delete(deleteGame);
 
 // ...For all the other requests just sends back the Homepage
 app.route('*').get((req, res) => {
-  res.send('Hello blog');
-  // res.sendFile('client/dist/index.html', { root: __dirname });
+  // res.send('Hello blog');
+  res.sendFile('client/dist/index.html', { root: __dirname });
 });
 
 app.listen(port);
