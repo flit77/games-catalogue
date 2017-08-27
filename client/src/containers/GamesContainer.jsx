@@ -1,50 +1,60 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Immutable from 'immutable';
 import { Modal, GamesListManager } from '../components';
-import * as gamesActionCreators from '../actions/games';
-import * as authActionCreators from '../actions/auth';
-import { toastr } from 'react-redux-toastr';
 
-class GamesContainer extends Component {
+export default class GamesContainer extends Component {
   constructor (props) {
     super(props);
+    // The initial state
+    this.state = { games: [], selectedGame: {}, searchBar: '' };
+    // Bind the functions to this (context) 
     this.toggleModal = this.toggleModal.bind(this);
     this.deleteGame = this.deleteGame.bind(this);
     this.setSearchBar = this.setSearchBar.bind(this);
-    this.logout = this.logout.bind(this);
   }
 
+  // Once the component mounted it fetches the data from the server
   componentDidMount () {
     this.getGames();
   }
 
   toggleModal (index) {
-    this.props.gamesActions.showSelectedGame(this.props.games[index]);
+    this.setState({ selectedGame: this.state.games[index] });
+    // Since we included bootstrap we can show our modal through its syntax
     $('#game-modal').modal();
   }
 
   getGames () {
-    this.props.gamesActions.getGames();
+    fetch('http://localhost:8080/games', {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(response => response.json()) // The json response to object literal
+    .then(data => this.setState({ games: data }));
   }
 
   deleteGame (id) {
-    this.props.gamesActions.deleteGame(id);
+    fetch(`http://localhost:8080/games/${id}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(response => {
+      // The game is also removed from the state thanks to the filter function
+      this.setState({ games: this.state.games.filter(game => game._id !== id) }); 
+      console.log(response.message);
+    });
   }
 
-  setSearchBar (event) {
-    this.props.gamesActions.setSearchBar(event.target.value.toLowerCase());
-  }
-
-  logout () {
-    this.props.authActions.logoutUser();
-    toastr.success('Retrogames archive', 'Your are now logged out');
-    localStorage.removeItem('token');
+  setSearchBar (event) { 
+    // Super still filters super mario thanks to toLowerCase
+    this.setState({ searchBar: event.target.value.toLowerCase() });
   }
 
   render () {
-    const { games, selectedGame, searchBar, userName, authActions } = this.props;
+    const { games, selectedGame, searchBar } = this.state;
     return (
       <div>
         <Modal game={selectedGame} />
@@ -54,27 +64,8 @@ class GamesContainer extends Component {
           setSearchBar={this.setSearchBar}
           toggleModal={this.toggleModal}
           deleteGame={this.deleteGame}
-          userName={userName}
-          logout={this.logout}
         />
       </div>
     );
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    games: state.getIn(['games', 'list'], Immutable.List()).toJS(),
-    searchBar: state.getIn(['games', 'searchBar'], ''),
-    selectedGame: state.getIn(['games', 'selectedGame'], Immutable.List()).toJS(),
-    userName: state.getIn(['auth', 'name'])
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    gamesActions: bindActionCreators(gamesActionCreators, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch)
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(GamesContainer);
