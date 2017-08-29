@@ -14,11 +14,13 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "immutable": "^3.8.1",
     "mongoose": "^4.11.8",
     "morgan": "^1.8.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-router": "^3.0.0"
+    "react-router": "^3.0.0",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
