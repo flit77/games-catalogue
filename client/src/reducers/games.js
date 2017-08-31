@@ -1,6 +1,10 @@
 import Immutable from 'immutable';
 // Here the constants file comes handy
-import { GET_GAMES_SUCCESS, GET_GAMES_FAILURE } from '../constants/games';
+import {
+  GET_GAMES_SUCCESS,
+  GET_GAMES_FAILURE,
+  SET_SEARCH_BAR
+} from '../constants/games';
 
 // The initial state is just an empty Map
 const initialState = Immutable.Map();
@@ -15,6 +19,10 @@ export default (state = initialState, action) => {
     // In case of failure it simplies returned a new empty state
     case GET_GAMES_FAILURE: {
       return state.clear();
+    }
+    // The reducer can now set the searchBar content into the state
+    case SET_SEARCH_BAR: {
+      return state.merge({ searchBar: action.keyword });
     }
     default:
       return state;

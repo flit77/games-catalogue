@@ -48,12 +48,12 @@ class GamesContainer extends Component {
   }
 
   setSearchBar (event) {
-    this.setState({ searchBar: event.target.value.toLowerCase() });
+    this.props.gamesActions.setSearchBar(event.target.value.toLowerCase());
   }
 
   render () {
-    const { selectedGame, searchBar } = this.state;
-    const { games  } = this.props;
+    const { selectedGame } = this.state;
+    const { games, searchBar } = this.props;
     console.log(games);
     return (
       <div>
@@ -73,7 +73,8 @@ class GamesContainer extends Component {
 // We can read values from the state thanks to mapStateToProps
 function mapStateToProps (state) {
   return { // We get all the games to list in the page
-    games: state.getIn(['games', 'list'], Immutable.List()).toJS()
+    games: state.getIn(['games', 'list'], Immutable.List()).toJS(),
+    searchBar: state.getIn(['games', 'searchBar'], '') // We retrieve the searchBar content too
   }
 }
 // We can dispatch actions to the reducer and sagas

@@ -2,7 +2,8 @@
 import {
   GET_GAMES,
   GET_GAMES_SUCCESS,
-  GET_GAMES_FAILURE
+  GET_GAMES_FAILURE,
+  SET_SEARCH_BAR
 } from '../constants/games';
 
 // GET_GAMES function will be dispatched within GamesContainer
@@ -27,5 +28,13 @@ function getGamesFailure() {
   };
 }
 
+// setSearchBar action-creator has a payload, the keyword typed by the users
+function setSearchBar(keyword) {
+  return {
+    type: SET_SEARCH_BAR,
+    keyword
+  };
+}
+
 // we export all the function in a single export command
-export { getGames, getGamesSuccess, getGamesFailure };
+export { getGames, getGamesSuccess, getGamesFailure, setSearchBar };
