@@ -3,7 +3,8 @@ import Immutable from 'immutable';
 import {
   GET_GAMES_SUCCESS,
   GET_GAMES_FAILURE,
-  SET_SEARCH_BAR
+  SET_SEARCH_BAR,
+  SHOW_SELECTED_GAME
 } from '../constants/games';
 
 // The initial state is just an empty Map
@@ -23,6 +24,10 @@ export default (state = initialState, action) => {
     // The reducer can now set the searchBar content into the state
     case SET_SEARCH_BAR: {
       return state.merge({ searchBar: action.keyword });
+    }
+    // We finally moved the selectedGame in the app state
+    case SHOW_SELECTED_GAME: {
+      return state.merge({ selectedGame: action.game });
     }
     default:
       return state;

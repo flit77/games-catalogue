@@ -24,7 +24,7 @@ class GamesContainer extends Component {
   }
 
   toggleModal (index) {
-    this.setState({ selectedGame: this.state.games[index] });
+    this.props.gamesActions.showSelectedGame(this.props.games[index]);
     $('#game-modal').modal();
   }
   
@@ -52,8 +52,7 @@ class GamesContainer extends Component {
   }
 
   render () {
-    const { selectedGame } = this.state;
-    const { games, searchBar } = this.props;
+    const { games, selectedGame, searchBar } = this.props;
     console.log(games);
     return (
       <div>
@@ -74,7 +73,8 @@ class GamesContainer extends Component {
 function mapStateToProps (state) {
   return { // We get all the games to list in the page
     games: state.getIn(['games', 'list'], Immutable.List()).toJS(),
-    searchBar: state.getIn(['games', 'searchBar'], '') // We retrieve the searchBar content too
+    searchBar: state.getIn(['games', 'searchBar'], ''), // We retrieve the searchBar content too
+    selectedGame: state.getIn(['games', 'selectedGame'], Immutable.List()).toJS()
   }
 }
 // We can dispatch actions to the reducer and sagas
