@@ -4,7 +4,10 @@ import {
   GET_GAMES_SUCCESS,
   GET_GAMES_FAILURE,
   SET_SEARCH_BAR,
-  SHOW_SELECTED_GAME
+  SHOW_SELECTED_GAME,
+  DELETE_GAME,
+  DELETE_GAME_SUCCESS,
+  DELETE_GAME_FAILURE
 } from '../constants/games';
 
 // GET_GAMES function will be dispatched within GamesContainer
@@ -44,11 +47,35 @@ function showSelectedGame(game) {
     game
   };
 }
+
+// This is called when a user clicks on the delete button
+function deleteGame() {
+  return {
+    type: DELETE_GAME
+  };
+}
+// In case of succesful deletion the action is dispatched to the reducer
+function deleteGamesSuccess(games) {
+  return {
+    type: DELETE_GAME_SUCCESS,
+    games
+  };
+}
+// In case of failure the saga dispatches DELETE_GAME_FAILURE instead
+function deleteGameFailure() {
+  return {
+    type: DELETE_GAME_FAILURE
+  };
+}
+
 // we export all the function in a single export command
 export {
   getGames,
   getGamesSuccess,
   getGamesFailure,
   setSearchBar,
-  showSelectedGame
+  showSelectedGame,
+  deleteGame,
+  deleteGameSuccess,
+  deleteGameFailure
 };
