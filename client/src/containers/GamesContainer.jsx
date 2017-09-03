@@ -60,16 +60,10 @@ class GamesContainer extends Component {
 
 // We can read values from the state thanks to mapStateToProps
 function mapStateToProps (state) {
-  // console.log('222');
-  // console.log(state);
-  // console.log(state.getIn(['games', 'list'], Immutable.List()));
-  // console.log(state.getIn(['games', 'selectedGame']));
-  // console.log(state.getIn(['games', 'selectedGame'], Immutable.List()));
   return { // We get all the games to list in the page
     games: state.getIn(['games', 'list'], Immutable.List()).toJS(),
     searchBar: state.getIn(['games', 'searchBar'], ''), // We retrieve the searchBar content too
     selectedGame: state.getIn(['games', 'selectedGame'], Immutable.List()).toJS()
-    // selectedGame: state.getIn(['games', 'selectedGame'], Immutable.List()) ? state.getIn(['games', 'selectedGame'], Immutable.List()).toJS() : {}
   }
 }
 // We can dispatch actions to the reducer and sagas

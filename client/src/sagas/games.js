@@ -26,6 +26,15 @@ const fetchGames = () => {
   }).then(response => response.json());
 };
 
+const deleteServerGame = id => {
+  return fetch(`http://localhost:8080/games/${id}`, {
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    method: 'DELETE'
+  }).then(response => response.json());
+};
+
 // yield call to fetchGames is in a try catch to control the flow even when the promise rejects
 function* getGames() {
   try {

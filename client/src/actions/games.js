@@ -49,11 +49,13 @@ function showSelectedGame(game) {
 }
 
 // This is called when a user clicks on the delete button
-function deleteGame() {
+function deleteGame(id) {
   return {
-    type: DELETE_GAME
+    type: DELETE_GAME,
+    id
   };
 }
+
 // In case of succesful deletion the action is dispatched to the reducer
 function deleteGameSuccess(games) {
   return {

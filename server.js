@@ -33,14 +33,20 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, x-access-token'
   );
   next();
 });
 
 // API routes
-app.route('/games').post(postGame).get(getGames);
-app.route('/games/:id').get(getGame).delete(deleteGame);
+app
+  .route('/games')
+  .post(postGame)
+  .get(getGames);
+app
+  .route('/games/:id')
+  .get(getGame)
+  .delete(deleteGame);
 
 // ...For all the other requests just sends back the Homepage
 app.route('*').get((req, res) => {

@@ -21,6 +21,8 @@ export default (state = initialState, action) => {
       return state.merge({ list: action.games });
     }
     // In case of failure it simplies returned a new empty state
+    // We can simply assume all the failures clear the state
+    case DELETE_GAME_FAILURE:
     case GET_GAMES_FAILURE: {
       return state.clear();
     }
@@ -29,8 +31,6 @@ export default (state = initialState, action) => {
       return state.merge({ searchBar: action.keyword });
     }
     // We finally moved the selectedGame in the app state
-    // We can simply assume all the failures clear the state
-    case DELETE_GAME_FAILURE:
     case SHOW_SELECTED_GAME: {
       return state.merge({ selectedGame: action.game });
     }
