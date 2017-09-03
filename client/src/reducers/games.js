@@ -4,7 +4,9 @@ import {
   GET_GAMES_SUCCESS,
   GET_GAMES_FAILURE,
   SET_SEARCH_BAR,
-  SHOW_SELECTED_GAME
+  SHOW_SELECTED_GAME,
+  DELETE_GAME_SUCCESS,
+  DELETE_GAME_FAILURE
 } from '../constants/games';
 
 // The initial state is just an empty Map
@@ -14,6 +16,7 @@ const initialState = Immutable.Map();
 export default (state = initialState, action) => {
   switch (action.type) {
     // GET_GAMES_SUCCESS case return a new state with the fetched games in the state
+    case DELETE_GAME_SUCCESS:
     case GET_GAMES_SUCCESS: {
       return state.merge({ list: action.games });
     }
@@ -26,6 +29,8 @@ export default (state = initialState, action) => {
       return state.merge({ searchBar: action.keyword });
     }
     // We finally moved the selectedGame in the app state
+    // We can simply assume all the failures clear the state
+    case DELETE_GAME_FAILURE:
     case SHOW_SELECTED_GAME: {
       return state.merge({ selectedGame: action.game });
     }

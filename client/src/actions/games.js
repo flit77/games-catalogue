@@ -55,7 +55,7 @@ function deleteGame() {
   };
 }
 // In case of succesful deletion the action is dispatched to the reducer
-function deleteGamesSuccess(games) {
+function deleteGameSuccess(games) {
   return {
     type: DELETE_GAME_SUCCESS,
     games

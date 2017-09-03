@@ -1,11 +1,20 @@
 // Import a saga helper
 import { takeLatest } from 'redux-saga';
 // Saga effects are usesul to interact with the saga middleware
-import { put, call } from 'redux-saga/effects';
-// As predicted a saga will take care of GET_GAMES actions
-import { GET_GAMES } from '../constants/games';
+import { put, select, call } from 'redux-saga/effects';
 // either one is yielded once the fetch is done
-import { getGamesSuccess, getGamesFailure } from '../actions/games';
+import {
+  getGamesSuccess,
+  getGamesFailure,
+  deleteGameSuccess,
+  deleteGameFailure
+} from '../actions/games';
+import { GET_GAMES, DELETE_GAME } from '../constants/games';
+
+// Selector function to return the games list from the state
+const selectedGames = state => {
+  return state.getIn(['games', 'list']).toJS();
+};
 
 // We moved the fetch from GamesContainer
 const fetchGames = () => {
@@ -27,10 +36,29 @@ function* getGames() {
   }
 }
 
+function* deleteGame(action) {
+  const { id } = action;
+  // We take the games from the state
+  const games = yield select(selectedGames);
+  try {
+    yield call(deleteServerGame, id);
+    // The new state will contain the games except for the deleted one.
+    yield put(deleteGameSuccess(games.filter(game => game._id !== id)));
+  } catch (e) {
+    // In case of error
+    yield put(deleteGameFailure());
+  }
+}
+
 // The watcher saga waits for dispatched GET_GAMES actions
 function* watchGetGames() {
   yield takeLatest(GET_GAMES, getGames);
 }
 
+// The new watcher intercepts the action and run deleteGame
+function* watchDeleteGame() {
+  yield takeLatest(DELETE_GAME, deleteGame);
+}
+
 // Export the watcher to be run in parallel in sagas/index.js
-export { watchGetGames };
+export { watchGetGames, watchDeleteGame };
