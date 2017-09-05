@@ -7,7 +7,10 @@ import {
   SHOW_SELECTED_GAME,
   DELETE_GAME,
   DELETE_GAME_SUCCESS,
-  DELETE_GAME_FAILURE
+  DELETE_GAME_FAILURE,
+  POST_GAME,
+  POST_GAME_SUCCESS,
+  POST_GAME_FAILURE
 } from '../constants/games';
 
 // GET_GAMES function will be dispatched within GamesContainer
@@ -70,6 +73,27 @@ function deleteGameFailure() {
   };
 }
 
+// POST_GAME is dispatched when users click on submit
+function postGame() {
+  return {
+    type: POST_GAME
+  };
+}
+
+// The action is dispatched when the returned promise from a POST request resolve
+function postGameSuccess() {
+  return {
+    type: POST_GAME_SUCCESS
+  };
+}
+
+// In case of failure
+function postGameFailure() {
+  return {
+    type: POST_GAME_FAILURE
+  };
+}
+
 // we export all the function in a single export command
 export {
   getGames,
@@ -79,5 +103,8 @@ export {
   showSelectedGame,
   deleteGame,
   deleteGameSuccess,
-  deleteGameFailure
+  deleteGameFailure,
+  postGame,
+  postGameSuccess,
+  postGameFailure
 };
