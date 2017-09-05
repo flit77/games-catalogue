@@ -33,14 +33,14 @@ import { Field, reduxForm } from 'redux-form/immutable'; class Form extends Pure
                                     {/* ... And the input number for the year */}
                                     <Field name="year" component="input" type="number" className="form-control" placeholder="Enter the year" />
                                 </div>
-                                <div className="form-group text-left">
+                                {false && <div className="form-group text-left">
                                     <label htmlFor="picture">Picture</label>
                                     <div className="text-center dropup">
                                         <button id="button-upload" type="button" className="btn btn-danger" onClick={()=> uploadPicture()}>
                                             Upload <span className="caret" />
                                         </button>
                                     </div>
-                                </div>
+                                </div>}
                                 <div className="form-group text-center">
                                     <img id="picture" className="img-responsive img-upload" src={picture} />
                                 </div>
