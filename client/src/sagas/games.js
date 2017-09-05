@@ -84,6 +84,7 @@ const getGameForm = state => {
 function* postGame() {
   // Access the state to retrieve the new game information
   // const picture = yield select(selectedPicture);
+  const picture = ''; // uploading pictures temporarily disabled
   const game = yield select(getGameForm);
   // Create the newGame object to be sent to the server
   const newGame = Object.assign({}, { picture }, game.values);
