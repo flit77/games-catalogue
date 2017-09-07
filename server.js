@@ -5,6 +5,7 @@ import morgan from 'morgan';
 
 import Game from './app/models/game';
 import { getGames, getGame, postGame, deleteGame } from './app/routes/game';
+import { signup, login, verifyAuth } from './app/routes/user';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -38,15 +39,18 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post('/auth/login', login);
+app.post('/auth/signup', signup);
+
 // API routes
 app
   .route('/games')
-  .post(postGame)
+  .post(verifyAuth, postGame)
   .get(getGames);
 app
   .route('/games/:id')
   .get(getGame)
-  .delete(deleteGame);
+  .delete(verifyAuth, deleteGame);
 
 // ...For all the other requests just sends back the Homepage
 app.route('*').get((req, res) => {
