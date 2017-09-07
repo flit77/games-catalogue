@@ -4,10 +4,12 @@ import { reducer as form } from 'redux-form/immutable';
 // Import our reducers function from here
 import games from './games';
 import filestack from './filestack';
+import routing from './routing';
 
 // combineReducers merges them all!
 export default combineReducers({
   games,
   form,
-  filestack
+  filestack,
+  routing
 });
