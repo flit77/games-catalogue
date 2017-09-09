@@ -28,7 +28,8 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "redux-toastr": "^1.1.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
