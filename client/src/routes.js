@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { AddGameContainer, GamesContainer } from './containers';
-import { Home, Archive, Welcome, About, Contact } from './components';
+import { Home, Archive, Welcome, About, Contact, Login } from './components';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 // Call the configureStore function previously exported
@@ -27,6 +27,9 @@ const routes = (
       <Route path="/games" component={Archive}>
         <IndexRoute component={GamesContainer} />
         <Route path="add" component={AddGameContainer} />
+      </Route>
+      <Route path="/auth" component={Archive}>
+        <Route path="login" component={Login} />
       </Route>
     </Router>
   </Provider>
