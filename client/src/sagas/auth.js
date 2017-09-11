@@ -1,7 +1,7 @@
 import { takeLatest } from 'redux-saga';
 import { put, call, select } from 'redux-saga/effects';
 // We import the constant to use it in the watcher
-import { LOGIN_USER } from '../constants/auth';
+import { LOGIN_USER, SIGNUP_USER } from '../constants/auth';
 import {
   loginUserSuccess,
   loginUserFailure,

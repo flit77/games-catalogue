@@ -4,6 +4,7 @@ import configureStore from './store';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { AddGameContainer, GamesContainer } from './containers';
 import { Home, Archive, Welcome, About, Contact, Login } from './components';
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
 import userAuthenticated from './utils/authWrapper';
@@ -18,6 +19,7 @@ const history = syncHistoryWithStore(hashHistory, store, {
 });
 
 const options = {
+  redirectPath: '/',
   authSelector: state => state.get('auth'),
   predicate: auth => auth.get('isAuthenticated'),
   redirectAction: ({ pathname, query }) => {
@@ -28,6 +30,7 @@ const options = {
   },
   wrapperDisplayName: 'UserIsJWTAuthenticated'
 };
+
 const requireAuthentication = userAuthenticated(options);
 
 // Provider wraps our root component

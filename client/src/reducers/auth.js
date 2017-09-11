@@ -18,6 +18,7 @@ const initialState = Immutable.Map({
 export default (state = initialState, action) => {
   switch (action.type) {
     // Once the server sent a token, the saga dispatches loginUserSuccess
+    case SIGNUP_USER_SUCCESS:
     case LOGIN_USER_SUCCESS: {
       return state.merge({
         isAuthenticated: true,
@@ -25,7 +26,7 @@ export default (state = initialState, action) => {
         name: jwtDecode(action.token).sub
       });
     }
-    // In case of failure the state goes back to the initial one
+    case SIGNUP_USER_FAILURE:
     case LOGIN_USER_FAILURE:
       return state.merge(initialState);
     default:
