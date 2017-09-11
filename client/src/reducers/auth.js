@@ -1,7 +1,12 @@
 import Immutable from 'immutable';
 // We neeed jwt-decode to take the user name from the token and store it in the state
 import jwtDecode from 'jwt-decode';
-import { LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } from '../constants/auth';
+import {
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_FAILURE
+} from '../constants/auth';
 
 // The initial state has no token hence no name and isAuthenticated is false
 const initialState = Immutable.Map({
