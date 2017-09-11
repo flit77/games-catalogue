@@ -8,8 +8,8 @@ import Archive from './Archive';
 import Modal from './Modal';
 import Welcome from './Welcome';
 import Login from './Login';
+import Signup from './Signup';
 
-// We export all the components at once
 export {
   About,
   Contact,
@@ -20,5 +20,6 @@ export {
   Archive,
   Modal,
   Welcome,
-  Login
+  Login,
+  Signup
 };
