@@ -2,7 +2,12 @@ import { takeLatest } from 'redux-saga';
 import { put, call, select } from 'redux-saga/effects';
 // We import the constant to use it in the watcher
 import { LOGIN_USER } from '../constants/auth';
-import { loginUserSuccess, loginUserFailure } from '../actions/auth';
+import {
+  loginUserSuccess,
+  loginUserFailure,
+  signupUserSuccess,
+  signupUserFailure
+} from '../actions/auth';
 // push action-creators to change the view
 import { push } from 'react-router-redux';
 // We want to show a notification to the user once logged in
@@ -69,7 +74,50 @@ function* loginUser(action) {
   }
 }
 
+function* signupUser() {
+  try {
+    // We get the credentials from the form in the state
+    const credentials = yield select(getForm, 'signup');
+    const result = yield call(sendCredentials, 'signup', credentials.values);
+    // Show a notification in the browser
+    yield put(
+      toastrActions.add({
+        type: 'success',
+        title: 'Retrogames Archive',
+        message: result.message
+      })
+    );
+    // Set the token in the local storage
+    localStorage.setItem('token', result.token);
+    // Update the state with the token
+    yield put(signupUserSuccess(result.token));
+    // Redirect to /games
+    yield put(push('/games'));
+  } catch (e) {
+    // As we did for loginUser, we show a personalized message according to the error status
+    let message = '';
+    if (e.status === 409) {
+      message = 'Email is already taken';
+    } else {
+      message = 'Sorry, an error occured!';
+    }
+    // Set the auth portion of the state to the initial value
+    yield put(signupUserFailure());
+    yield put(
+      toastrActions.add({
+        type: 'error',
+        title: 'Retrogames Archive',
+        message: message
+      })
+    );
+  }
+}
+
 // Saga watcher to intercept LOGIN_USER
 export function* watchLoginUser() {
   yield takeLatest(LOGIN_USER, loginUser);
+}
+
+export function* watchSignupUser() {
+  yield takeLatest(SIGNUP_USER, signupUser);
 }
