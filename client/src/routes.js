@@ -19,7 +19,7 @@ const history = syncHistoryWithStore(hashHistory, store, {
 });
 
 const options = {
-  redirectPath: '/',
+  redirectPath: '/auth/login',
   authSelector: state => state.get('auth'),
   predicate: auth => auth.get('isAuthenticated'),
   redirectAction: ({ pathname, query }) => {
