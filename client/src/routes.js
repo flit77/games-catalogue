@@ -7,7 +7,7 @@ import { Home, Archive, Welcome, About, Contact, Login } from './components';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
-import userAuthenticated from './utils/authWrapper';
+import userAuthenticated from './utils/routerRedirect';
 
 // Call the configureStore function previously exported
 const store = configureStore();

@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
 import userAuthenticated from '../utils/authWrapper';
+import { routerActions } from 'react-router-redux';
+import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper'
 
 const options = {
-  redirectPath: "/",
-  authSelector: state => state.get('auth'),
-  predicate: auth => auth.get('isAuthenticated'),
-  wrapperDisplayName: 'authDeleteGame',
-  FailureComponent: null
+  authenticatedSelector: state => state.get('auth').get('isAuthenticated'),
+  wrapperDisplayName: 'UserIsAuthenticated'
 };
 
 const DeleteButton = userAuthenticated(options)(
