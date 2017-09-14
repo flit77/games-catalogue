@@ -50,7 +50,7 @@ class GamesContainer extends Component {
   }
 
   render () {
-    const { games, selectedGame, searchBar } = this.props;
+    const { games, selectedGame, searchBar, userName, authActions } = this.props;
     return (
       <div>
         <Modal game={selectedGame} />
@@ -60,6 +60,8 @@ class GamesContainer extends Component {
           setSearchBar={this.setSearchBar}
           toggleModal={this.toggleModal}
           deleteGame={this.deleteGame}
+          userName={userName}
+          logout={this.logout}
         />
       </div>
     );
