@@ -3,7 +3,15 @@ import { Provider } from 'react-redux';
 import configureStore from './store';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { AddGameContainer, GamesContainer } from './containers';
-import { Home, Archive, Welcome, About, Contact, Login } from './components';
+import {
+  Home,
+  Archive,
+  Welcome,
+  About,
+  Contact,
+  Login,
+  Signup
+} from './components';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
@@ -52,6 +60,7 @@ const routes = (
         </Route>
         <Route path="/auth" component={Archive}>
           <Route path="login" component={Login} />
+          <Route path="signup" component={Signup} />
         </Route>
       </Router>
       <ReduxToastr

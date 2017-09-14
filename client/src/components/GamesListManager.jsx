@@ -5,7 +5,7 @@ import AddGamePanel from './AddGamePanel';
 
 export default class GamesListManager extends PureComponent {
   render () {
-    const { games, searchBar, setSearchBar, toggleModal, deleteGame, logout } = this.props;
+    const { games, searchBar, setSearchBar, toggleModal, deleteGame, userName, logout } = this.props;
     return (
 
       <div className="container scrollable">
