@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { Modal, GamesListManager } from '../components';
-// we import the action-creators to be binde with bindActionCreators
 import * as gamesActionCreators from '../actions/games';
+import * as authActionCreators from '../actions/auth';
 import { toastr } from 'react-redux-toastr';
 
 // We do not export GamesContainer as it is 'almost' a dumb component
@@ -80,7 +80,8 @@ function mapStateToProps (state) {
 // We can dispatch actions to the reducer and sagas
 function mapDispatchToProps (dispatch) {
   return {
-    gamesActions: bindActionCreators(gamesActionCreators, dispatch)
+    gamesActions: bindActionCreators(gamesActionCreators, dispatch),
+    authActions: bindActionCreators(authActionCreators, dispatch)
   };
 }
 // Finally we export the connected GamesContainer
