@@ -1,10 +1,16 @@
 // We import Redux and Redux-saga dependencies
 import { createStore, applyMiddleware, compose } from 'redux';
+import Immutable from 'immutable';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
 import reducer from './reducers';
 import { routerMiddleware } from 'react-router-redux';
 import { hashHistory } from 'react-router';
+import isAuthenticated from './utils/authentication';
+
+const initialState = Immutable.fromJS({
+  auth: isAuthenticated()
+});
 
 // The function in charge of creating and returning the store of the app
 const configureStore = () => {
@@ -13,7 +19,11 @@ const configureStore = () => {
   const routeMiddleware = routerMiddleware(hashHistory);
   const store = createStore(
     reducer,
-    applyMiddleware(sagaMiddleware, routeMiddleware)
+    initialState,
+    compose(
+      applyMiddleware(sagaMiddleware, routeMiddleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
   );
   // rootSaga starts all the sagas in parallel
   sagaMiddleware.run(rootSaga);
